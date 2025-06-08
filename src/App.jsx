@@ -16,7 +16,7 @@ function App() {
 
       {/* Footer */}
       <footer className="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-8 border-t">
-        s© {new Date().getFullYear()} eugeniop's Itinerarium Latinum. All rights reserved.
+        © {new Date().getFullYear()} eugeniop's Itinerarium Latinum. All rights reserved.
       </footer>
     </div>
   )
