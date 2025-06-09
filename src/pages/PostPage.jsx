@@ -159,18 +159,26 @@ function PostPage() {
     }
 
     const discoverQuizzes = async () => {
-      const baseSlug = slug.replace(/\.(md|markdown)$/, '')
-      const sources = []
-      for (let i = 1; i < 10; i++) {
-        try {
-          const res = await fetch(`${import.meta.env.BASE_URL}posts/quiz-${i}-${baseSlug}.md`)
-          if (!res.ok) break
-          sources.push(await res.text())
-        } catch (_) {
-          break
+      try {
+        const res = await fetch(`${import.meta.env.BASE_URL}posts/quizes.json`)
+        const map = await res.json()
+        const quizFiles = map[slug] || []
+        const sources = []
+        for (const file of quizFiles) {
+          try {
+            const qRes = await fetch(`${import.meta.env.BASE_URL}posts/${file}`)
+            if (qRes.ok) {
+              sources.push(await qRes.text())
+            }
+          } catch (_) {
+            // ignore
+          }
         }
+        setQuizSources(sources)
+      } catch (err) {
+        console.error('Failed to load quiz list', err)
+        setQuizSources([])
       }
-      setQuizSources(sources)
     }
 
 
@@ -212,17 +220,16 @@ function PostPage() {
         <a href={import.meta.env.BASE_URL} className="text-blue-600 underline">← Home</a>
       </p>
 
-      {/* Tabs */}
-      <div className="mb-4 mt-4">
-        <button
-          onClick={() => setTab('content')}
-          className={`px-3 py-1 mr-2 rounded ${
-            tab === 'content' ? 'bg-blue-600 text-white' : 'bg-gray-200'
-          }`}
-        >
-          Content
-        </button>
-        {quizSources.length > 0 && (
+      {quizSources.length > 0 && (
+        <div className="mb-4 mt-4">
+          <button
+            onClick={() => setTab('content')}
+            className={`px-3 py-1 mr-2 rounded ${
+              tab === 'content' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            }`}
+          >
+            Content
+          </button>
           <button
             onClick={() => setTab('quiz')}
             className={`px-3 py-1 rounded ${
@@ -231,17 +238,24 @@ function PostPage() {
           >
             Quiz
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      {tab === 'content' && (
+      {quizSources.length === 0 && (
         <div
           className="prose max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       )}
 
-      {tab === 'quiz' && quiz && (
+      {quizSources.length > 0 && tab === 'content' && (
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      )}
+
+      {quizSources.length > 0 && tab === 'quiz' && quiz && (
         <div>
           {quiz.map((q, qi) => {
             const isMatch = q.type === 'match'
