@@ -15,6 +15,7 @@ export default function generatePostsPlugin() {
 
       const POSTS_DIR = './public/posts'
       const OUTPUT_JSON = './public/posts/posts.json'
+      const OUTPUT_QUIZES = './public/posts/quizes.json'
       const OUTPUT_RSS = './public/rss.xml'
       const SITE_URL = 'https://eugeniop.github.io/itinerariumlatinum'
 
@@ -27,6 +28,8 @@ export default function generatePostsPlugin() {
       }
 
       const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
+      const postFiles = files.filter(f => !f.startsWith('quiz-'))
+      const quizFiles = files.filter(f => f.startsWith('quiz-'))
 
       async function getExcerptHtml(body) {
         const firstPara = body.trim().split(/\n{2,}/)[0]
@@ -42,7 +45,7 @@ export default function generatePostsPlugin() {
       }
 
       const posts = await Promise.all(
-        files.map(async (filename) => {
+        postFiles.map(async (filename) => {
           const fullPath = path.join(POSTS_DIR, filename)
           const raw = fs.readFileSync(fullPath, 'utf-8')
           const { attributes, body } = fm(raw)
@@ -69,6 +72,18 @@ export default function generatePostsPlugin() {
 
       fs.writeFileSync(OUTPUT_JSON, JSON.stringify(posts, null, 2))
       console.log(`✔ Generated ${posts.length} posts → ${OUTPUT_JSON}`)
+
+      // Build quiz mapping
+      const quizMap = {}
+      for (const postFile of postFiles) {
+        const slug = postFile.replace(/\.(md|markdown)$/, '')
+        const related = quizFiles.filter(q => q.includes(`-${slug}.`))
+        if (related.length) {
+          quizMap[postFile] = related
+        }
+      }
+      fs.writeFileSync(OUTPUT_QUIZES, JSON.stringify(quizMap, null, 2))
+      console.log(`✔ Generated quiz map with ${Object.keys(quizMap).length} entries → ${OUTPUT_QUIZES}`)
 
       // ✅ Optional RSS generation
       const rssItems = posts.map(post => `
