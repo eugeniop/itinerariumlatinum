@@ -126,8 +126,12 @@ function PostPage() {
         if (attributes.questions) {
           const processed = attributes.questions.map((q) => {
             if (q.type === 'match' && Array.isArray(q.pairs)) {
-              const left = q.pairs.map(p => Array.isArray(p) ? p[0] : p.left)
-              const right = q.pairs.map(p => Array.isArray(p) ? p[1] : p.right)
+              let pairs = [...q.pairs]
+              if (pairs.length > 5) {
+                pairs = pairs.sort(() => Math.random() - 0.5).slice(0, 5)
+              }
+              const left = pairs.map(p => Array.isArray(p) ? p[0] : p.left)
+              const right = pairs.map(p => Array.isArray(p) ? p[1] : p.right)
               const leftShuffled = [...left].sort(() => Math.random() - 0.5)
               const rightShuffled = [...right].sort(() => Math.random() - 0.5)
               const ansMap = {}
