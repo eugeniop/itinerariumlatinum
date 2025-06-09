@@ -27,6 +27,7 @@ function PostPage() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const [quiz, setQuiz] = useState(null)
+  const [quizSources, setQuizSources] = useState([])
   const [answers, setAnswers] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [tab, setTab] = useState('content')
@@ -82,6 +83,50 @@ function PostPage() {
     setActiveLeft(null)
   }
 
+  const parseQuiz = (raw) => {
+    try {
+      const { attributes } = fm(raw)
+      if (attributes.questions) {
+        const processed = attributes.questions.map((q) => {
+          if (q.type === 'match' && Array.isArray(q.pairs)) {
+            let pairs = [...q.pairs]
+            if (pairs.length > 5) {
+              pairs = pairs.sort(() => Math.random() - 0.5).slice(0, 5)
+            }
+            const left = pairs.map(p => Array.isArray(p) ? p[0] : p.left)
+            const right = pairs.map(p => Array.isArray(p) ? p[1] : p.right)
+            const leftShuffled = [...left].sort(() => Math.random() - 0.5)
+            const rightShuffled = [...right].sort(() => Math.random() - 0.5)
+            const ansMap = {}
+            leftShuffled.forEach((lw, li) => {
+              const origIdx = left.indexOf(lw)
+              const rw = right[origIdx]
+              ansMap[li] = rightShuffled.indexOf(rw)
+            })
+            return { type: 'match', prompt: q.prompt, left: leftShuffled, right: rightShuffled, answer: ansMap }
+          }
+          let ans = q.answer
+          if (typeof ans === 'string') {
+            ans = ans.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
+          } else if (!Array.isArray(ans)) {
+            ans = [ans]
+          }
+          return { ...q, type: 'multiple', answer: ans }
+        })
+        const shuffled = processed.sort(() => Math.random() - 0.5).slice(0, 5)
+        setQuiz(shuffled)
+        setAnswers(shuffled.map((q) => {
+          if (q.type === 'match') return {}
+          return q.answer.length > 1 ? [] : null
+        }))
+        return true
+      }
+    } catch (err) {
+      console.error('Failed to parse quiz', err)
+    }
+    return false
+  }
+
   useEffect(() => {
     const loadPost = async () => {
 
@@ -113,61 +158,35 @@ function PostPage() {
       })
     }
 
-    const loadQuiz = async () => {
+    const discoverQuizzes = async () => {
       const baseSlug = slug.replace(/\.(md|markdown)$/, '')
-      try {
-        const res = await fetch(`${import.meta.env.BASE_URL}posts/quiz-${baseSlug}.md`)
-        if (!res.ok) {
-          setQuiz(null)
-          return
+      const sources = []
+      for (let i = 1; i < 10; i++) {
+        try {
+          const res = await fetch(`${import.meta.env.BASE_URL}posts/quiz-${i}-${baseSlug}.md`)
+          if (!res.ok) break
+          sources.push(await res.text())
+        } catch (_) {
+          break
         }
-        const raw = await res.text()
-        const { attributes } = fm(raw)
-        if (attributes.questions) {
-          const processed = attributes.questions.map((q) => {
-            if (q.type === 'match' && Array.isArray(q.pairs)) {
-              let pairs = [...q.pairs]
-              if (pairs.length > 5) {
-                pairs = pairs.sort(() => Math.random() - 0.5).slice(0, 5)
-              }
-              const left = pairs.map(p => Array.isArray(p) ? p[0] : p.left)
-              const right = pairs.map(p => Array.isArray(p) ? p[1] : p.right)
-              const leftShuffled = [...left].sort(() => Math.random() - 0.5)
-              const rightShuffled = [...right].sort(() => Math.random() - 0.5)
-              const ansMap = {}
-              leftShuffled.forEach((lw, li) => {
-                const origIdx = left.indexOf(lw)
-                const rw = right[origIdx]
-                ansMap[li] = rightShuffled.indexOf(rw)
-              })
-              return { type: 'match', prompt: q.prompt, left: leftShuffled, right: rightShuffled, answer: ansMap }
-            }
-            let ans = q.answer
-            if (typeof ans === 'string') {
-              ans = ans.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
-            } else if (!Array.isArray(ans)) {
-              ans = [ans]
-            }
-            return { ...q, type: 'multiple', answer: ans }
-          })
-          // randomize questions and limit to 5
-          const shuffled = processed.sort(() => Math.random() - 0.5).slice(0, 5)
-          setQuiz(shuffled)
-          setAnswers(shuffled.map((q) => {
-            if (q.type === 'match') return {}
-            return q.answer.length > 1 ? [] : null
-          }))
-        }
-      } catch (err) {
-        console.error('Failed to load quiz', err)
       }
+      setQuizSources(sources)
     }
 
+
     loadPost()
-    loadQuiz()
+    discoverQuizzes()
     setTab('content')
     setSubmitted(false)
   }, [slug])
+
+  useEffect(() => {
+    if (tab === 'quiz' && quizSources.length > 0) {
+      const raw = quizSources[Math.floor(Math.random() * quizSources.length)]
+      parseQuiz(raw)
+      setSubmitted(false)
+    }
+  }, [tab, quizSources])
 
   if (!post) return <p className="p-4">Loading post...</p>
 
@@ -203,7 +222,7 @@ function PostPage() {
         >
           Content
         </button>
-        {quiz && (
+        {quizSources.length > 0 && (
           <button
             onClick={() => setTab('quiz')}
             className={`px-3 py-1 rounded ${
