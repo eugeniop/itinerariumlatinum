@@ -26,6 +26,25 @@ function estimateReadTime(text) {
 function PostPage() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
+  const [quiz, setQuiz] = useState(null)
+  const [answers, setAnswers] = useState([])
+  const [submitted, setSubmitted] = useState(false)
+  const [tab, setTab] = useState('content')
+
+  const handleAnswer = (qIdx, optionIdx) => {
+    const updated = [...answers]
+    updated[qIdx] = optionIdx
+    setAnswers(updated)
+  }
+
+  const handleDone = () => {
+    setSubmitted(true)
+  }
+
+  const handleReset = () => {
+    if (quiz) setAnswers(Array(quiz.length).fill(null))
+    setSubmitted(false)
+  }
 
   useEffect(() => {
     const loadPost = async () => {
@@ -58,7 +77,29 @@ function PostPage() {
       })
     }
 
+    const loadQuiz = async () => {
+      const baseSlug = slug.replace(/\.(md|markdown)$/, '')
+      try {
+        const res = await fetch(`${import.meta.env.BASE_URL}posts/quiz-${baseSlug}.md`)
+        if (!res.ok) {
+          setQuiz(null)
+          return
+        }
+        const raw = await res.text()
+        const { attributes } = fm(raw)
+        if (attributes.questions) {
+          setQuiz(attributes.questions)
+          setAnswers(Array(attributes.questions.length).fill(null))
+        }
+      } catch (err) {
+        console.error('Failed to load quiz', err)
+      }
+    }
+
     loadPost()
+    loadQuiz()
+    setTab('content')
+    setSubmitted(false)
   }, [slug])
 
   if (!post) return <p className="p-4">Loading post...</p>
@@ -84,10 +125,86 @@ function PostPage() {
       <p className="mt-4">
         <a href={import.meta.env.BASE_URL} className="text-blue-600 underline">← Home</a>
       </p>
-      <div
-        className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+
+      {/* Tabs */}
+      <div className="mb-4 mt-4">
+        <button
+          onClick={() => setTab('content')}
+          className={`px-3 py-1 mr-2 rounded ${
+            tab === 'content' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+          }`}
+        >
+          Content
+        </button>
+        {quiz && (
+          <button
+            onClick={() => setTab('quiz')}
+            className={`px-3 py-1 rounded ${
+              tab === 'quiz' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            }`}
+          >
+            Quiz
+          </button>
+        )}
+      </div>
+
+      {tab === 'content' && (
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      )}
+
+      {tab === 'quiz' && quiz && (
+        <div>
+          {quiz.map((q, qi) => (
+            <div key={qi} className="mb-6">
+              <p className="font-semibold mb-2">{q.prompt}</p>
+              {q.options.map((opt, oi) => (
+                <label key={oi} className="block mb-1">
+                  <input
+                    type="radio"
+                    name={`q-${qi}`}
+                    className="mr-2"
+                    onChange={() => handleAnswer(qi, oi)}
+                    checked={answers[qi] === oi}
+                    disabled={submitted}
+                  />
+                  {opt}
+                </label>
+              ))}
+              {submitted && (
+                <p
+                  className={`mt-1 font-semibold ${
+                    answers[qi] === q.answer ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {answers[qi] === q.answer
+                    ? 'Correct!'
+                    : `Incorrect. Correct answer: ${q.options[q.answer]}`}
+                </p>
+              )}
+            </div>
+          ))}
+
+          {quiz.length > 0 && (
+            <div className="mt-4">
+              <button
+                onClick={handleDone}
+                className="bg-green-600 text-white px-4 py-2 rounded mr-2"
+              >
+                Done
+              </button>
+              <button
+                onClick={handleReset}
+                className="bg-gray-300 px-4 py-2 rounded"
+              >
+                Reset
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
