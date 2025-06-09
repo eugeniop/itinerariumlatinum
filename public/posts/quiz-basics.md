@@ -3,9 +3,12 @@ questions:
   - prompt: "Which languages evolved from Latin?"
     options:
       - "German and Dutch"
-      - "Italian, French, Spanish and Romanian"
+      - "Italian"
+      - "French"
+      - "Spanish"
+      - "Romanian"
       - "Chinese and Japanese"
-    answer: 1
+    answer: 1,2,3,4
   - prompt: "Is Latin considered a living language?"
     options:
       - "Yes"

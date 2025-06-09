@@ -31,9 +31,20 @@ function PostPage() {
   const [submitted, setSubmitted] = useState(false)
   const [tab, setTab] = useState('content')
 
-  const handleAnswer = (qIdx, optionIdx) => {
+  const handleAnswer = (qIdx, optionIdx, checked) => {
     const updated = [...answers]
-    updated[qIdx] = optionIdx
+    const isMulti = quiz && Array.isArray(quiz[qIdx].answer) && quiz[qIdx].answer.length > 1
+    if (isMulti) {
+      const current = new Set(updated[qIdx] || [])
+      if (checked) {
+        current.add(optionIdx)
+      } else {
+        current.delete(optionIdx)
+      }
+      updated[qIdx] = Array.from(current)
+    } else {
+      updated[qIdx] = optionIdx
+    }
     setAnswers(updated)
   }
 
@@ -42,7 +53,13 @@ function PostPage() {
   }
 
   const handleReset = () => {
-    if (quiz) setAnswers(Array(quiz.length).fill(null))
+    if (quiz) {
+      setAnswers(
+        quiz.map((q) =>
+          Array.isArray(q.answer) && q.answer.length > 1 ? [] : null
+        )
+      )
+    }
     setSubmitted(false)
   }
 
@@ -88,8 +105,19 @@ function PostPage() {
         const raw = await res.text()
         const { attributes } = fm(raw)
         if (attributes.questions) {
-          setQuiz(attributes.questions)
-          setAnswers(Array(attributes.questions.length).fill(null))
+          const processed = attributes.questions.map((q) => {
+            let ans = q.answer
+            if (typeof ans === 'string') {
+              ans = ans.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
+            } else if (!Array.isArray(ans)) {
+              ans = [ans]
+            }
+            return { ...q, answer: ans }
+          })
+          // randomize questions and limit to 5
+          const shuffled = processed.sort(() => Math.random() - 0.5).slice(0, 5)
+          setQuiz(shuffled)
+          setAnswers(shuffled.map((q) => (q.answer.length > 1 ? [] : null)))
         }
       } catch (err) {
         console.error('Failed to load quiz', err)
@@ -163,11 +191,15 @@ function PostPage() {
               {q.options.map((opt, oi) => (
                 <label key={oi} className="block mb-1">
                   <input
-                    type="radio"
+                    type={q.answer.length > 1 ? 'checkbox' : 'radio'}
                     name={`q-${qi}`}
                     className="mr-2"
-                    onChange={() => handleAnswer(qi, oi)}
-                    checked={answers[qi] === oi}
+                    onChange={(e) => handleAnswer(qi, oi, e.target.checked)}
+                    checked={
+                      q.answer.length > 1
+                        ? (answers[qi] || []).includes(oi)
+                        : answers[qi] === oi
+                    }
                     disabled={submitted}
                   />
                   {opt}
@@ -176,12 +208,22 @@ function PostPage() {
               {submitted && (
                 <p
                   className={`mt-1 font-semibold ${
-                    answers[qi] === q.answer ? 'text-green-600' : 'text-red-600'
+                    (q.answer.length > 1
+                      ? q.answer.every((a) => (answers[qi] || []).includes(a)) &&
+                        (answers[qi] || []).length === q.answer.length
+                      : answers[qi] === q.answer[0])
+                      ? 'text-green-600'
+                      : 'text-red-600'
                   }`}
                 >
-                  {answers[qi] === q.answer
+                  {(q.answer.length > 1
+                    ? q.answer.every((a) => (answers[qi] || []).includes(a)) &&
+                      (answers[qi] || []).length === q.answer.length
+                    : answers[qi] === q.answer[0])
                     ? 'Correct!'
-                    : `Incorrect. Correct answer: ${q.options[q.answer]}`}
+                    : `Incorrect. Correct answer: ${q.answer
+                        .map((a) => q.options[a])
+                        .join(', ')}`}
                 </p>
               )}
             </div>
