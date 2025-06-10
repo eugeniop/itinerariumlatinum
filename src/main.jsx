@@ -8,8 +8,7 @@ import App from './App.jsx'
 import './index.css'
 import 'highlight.js/styles/atom-one-dark.css'
 
-const basename =
-  import.meta.env.MODE === 'production' ? '/itinerariumlatinum' : '/'
+const basename = '/';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
