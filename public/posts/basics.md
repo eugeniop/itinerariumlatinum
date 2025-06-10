@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The basics"
+title: RUDIMENTA LINGVAE LATINAE
 date:   2025-06-07
 categories:
 author: Eugenio Pace
@@ -23,7 +23,7 @@ I read somewhere that over 60% of the English vocabulary has a Latin root. It mi
 | **Justice**      | *iustitia*     | justice, righteousness | Related to fairness or the law                  |
 | **Library**      | *liber*        | book                   | A place of books                                |
 
-So, while finding people casually talking in Latin might be hard to find (unless you are in the Vatican), you will be using Latin even if you don't want to.
+So, while finding people casually talking in Latin might be hard to find (unless you are in the Vatican), you will be using Latin even if you don't want to. It is both fun and interesting to understand etymology (the origin of words). It gives a better understanding of the intent of the concepts the words try to encapsulate. 
 
 ## Structure of sentences
 
@@ -46,17 +46,19 @@ Latin doesn't have articles and uses fewer prepositions to indicate function. On
 * Legit librum puella
 * Puella legit librum
 
-They all mean the same. You can't do this in English. If you write *The book reads the girl*, them meaning is completely different. 
+They all mean the same. You can't do this in English (with maybe a few exceptions). If you write *The book reads the girl*, them meaning is completely different, while the words are exactly the same!
 
->>> While the meaning remains the same, the order of the words is used to put emphasis on different things. _Librum puella legit_ sounds more the type of sentence you will find in poetry or in a speech.
+> While the meaning remains the same, the order of the words is used to put emphasis on different things. _Librum puella legit_ sounds more the type of sentence you will find in poetry or in a speech.
 
-This is possible, because Latin is an _inflected_ language. Meaninig that the words _ending_ changes based on the function they perform:
+This is possible, because Latin is an _inflected_ language. Meanining that the words _ending_ changes based on the function they perform:
 
-In the example, *Librum* is in the *Accusative* case, because it is the object. We know this because of the ending *-um*. If the book was the *Subject*, then it would be *Liber*. Words in Latin change with:
+In the example, *Librum* is in the *Accusative* case, because it is the object being acted on. We know this because of the ending *-um*. If the book was the *Subject*, then it would be *Liber*. Word endings  in Latin change with:
 
-* Gender (3 genders: masculine, feminine, and neuter)
-* Number (is it one thing or many. Singular or plural)
+* Gender (there are 3 genders: masculine, feminine, and neuter)
+* Number (is it one thing or many? Singular or plural)
 * The function they perform in a sentence (called a *case*)
+
+In Latin there are 6 main cases:
 
 | **Case**       | **Singular** | **Plural** | **Function / Use**                        |
 | -------------- | ------------ | ---------- | ----------------------------------------- |
@@ -73,14 +75,14 @@ Descendents of Latin, like Spanish, have retained some of this, but not all. In 
 | ---------------- | -------------------- | ----------------------- | ------------------------------------- |
 | **Nominative**   | *liber*              | **el libro**            | Subject → “**The book** is new.”      |
 | **Genitive**     | *librī*              | **del libro**           | Possession → “**Of the book**”        |
-| **Dative**       | *librō*              | **al libro**            | Indirect object → “To the book”       |
+| **Dative**       | *librō*              | **al libro**            | Indirect object → “**To the book**”   |
 | **Accusative**   | *librum*             | **el libro**            | Direct object → “I read **the book**” |
 | **Ablative**     | *librō*              | **con el libro**        | Means/agent → “**With the book**”     |
-| **Vocative**     | *liber*              | **Oh libro!**           | Direct address → “O book!”            |
+| **Vocative**     | *liber*              | **Oh libro!**           | Direct address → “**O book!**”        |
 
-But, in Spanish, *many books* is *libros*. Like English, the ending changes with *number*.
+In Spanish, *many books* is *libros*. Like English, the ending changes with *number*. Somewhat oddly, English retains a form of **genitive**. We can say _"The book's title"_. The **'s** indicates possession.
 
-This mechanism of identifying function extends from nouns into pronouns and adjectives. Latin nouns, pronouns and adjectives belong to different families with different patterns of endings. The *patterns* are called *declensions*. *Liber* happens to belong to the 2nd declension.
+This mechanism of identifying function extends from nouns into pronouns and adjectives. Latin nouns, pronouns and adjectives belong to different families with different patterns of endings. These *patterns* are called *declensions*. *Liber* happens to belong to the 2nd declension. Nost courses (like this one), will start with the 1st Declension.
 
 ## Latin Declensions
 
@@ -92,9 +94,9 @@ This mechanism of identifying function extends from nouns into pronouns and adje
 | 4th            | -us (mostly masculine) | *manus* (hand), *fructus*        |
 | 5th            | -ēs (feminine)         | *rēs* (thing), *diēs* (day)      |
 
-Why all this complexity? Here's my own theory: languages evolve along with the communities that use them. Commerce, integration, conquest, practical need, education level, intermingling of different people were among the forces that shaped languages. In modern Spanish, we say *resetear* meaning *to reset*. Which is common in software development communities. Latin itself derives from another ancestral language which was even *more* complex. For example it had 3 *numbers*: single, dual and multiple. Latin retained single and multiple. 
+Why all this complexity? Here's my own theory: languages evolve along with the communities that use them. Commerce, integration, conquest, practical need, education level, intermingling of different people were among the forces that shaped languages. In modern Spanish, we say *resetear* meaning *to reset*, which is common in software development communities. Latin itself derives from another ancestral language (called _*Proto Indo European*_ by people who study languages), which was even *more* complex. It had 8(!) *cases*, and 3 *numbers*: single, dual and multiple. Latin retained 6 cases, and 2 numbers.
 
-As an example, the *locative* case present in *proto indo european*, disapeared almost completely, except for names of cities, small islands and a handful of words. Latin often uses prepositions + ablative for place (e.g., _in urbe_ = in the city).
+As an example, the *locative* case present in PIE, dissappeared almost completely, except for names of cities, small islands and a handful of words. Latin often uses prepositions + ablative for place (e.g., _in urbe_ = in the city).
 
 | **Latin (Locative)** | **Root Noun**       | **Translation**     |
 | -------------------- | ------------------- | ------------------- |
@@ -106,7 +108,7 @@ As an example, the *locative* case present in *proto indo european*, disapeared 
 | *humi*               | *humus* (ground)    | on the ground       |
 | *militiae*           | *militia*           | in military service |
 
-Prepositions and word order convention replaced endings to convey meaninig.
+Prepositions and word order convention replaced endings to convey meaninig where *cases* can't or don't exist.
 
 ## Agreement
 
@@ -127,8 +129,8 @@ The good boy reads a book.
 
 | Word    | Role                  | Gender    | Number   | Case       |
 | ------- | --------------------- | --------- | -------- | ---------- |
-| **hic** | demonstrative pronoun | masculine | singular | nominative |
-| **vir** | noun                  | masculine | singular | nominative |
+| **Bonus** | Adjetive (describing the boy)          | masculine | singular | nominative |
+| **Puer** | noun                  | masculine | singular | nominative |
 
 ➡️ Bonus agrees with puer in gender, number, and case.
 
@@ -166,11 +168,13 @@ So, the general rule is:
 
 Latin verbs carry lots of information in their endings. They are conjugated by: 
 
-* Person (I, you (sing), he/she, you (pl), they) - The *who?*
+* Person (I, you (sing), he/she, you (pl), they) - The *who?* from the point of view of the speaker
 * Number (singular / plural) - The *How many?*
-* Tense (present, future, etc.) - The *When?*
+* Tense (present, future, etc.) - The *When?* Latin has 6 tenses
 * Mood (indicative, subjunctive, imperative) - Tells us how the action is presented: is it a *fact*, a *command*, a *possibility*, or *a wish*?
 * Voice (active or passive) - Used to indicate whether the subject is the *receiver* or the *producer* of the action.
+
+All this is captured in the verb ending.
 
 For example:
 
@@ -178,3 +182,30 @@ For example:
 * amās = you love
 * amābat = he/she was loving
 * amātur = he/she is loved (passive voice)
+
+### Infinitives
+
+An infinitive is a verb without any conjugation information. In English we for ininitives with the word "to" preceding them.
+
+* amare = to love
+
+### Conjugations
+
+There are 4 Conjugations, identified by the infinitive endings:
+
+| **Conjugation** | **Infinitive Ending** | **Example Verb** | **Meaning** |
+| --------------- | --------------------- | ---------------- | ----------- |
+| 1st             | -āre                  | *amāre*          | to love     |
+| 2nd             | -ēre                  | *monēre*         | to warn     |
+| 3rd             | -ere                  | *regere*         | to rule     |
+| 4th             | -īre                  | *audīre*         | to hear     |
+
+In dictionaries, a verb will be shown in 4 versions:
+
+* 1st person singular present (e.g., amō – I love)
+* Infinitive (e.g., amāre – to love)
+* 1st person singular perfect (e.g., amāvī – I loved)
+* Perfect passive participle (e.g., amātus – (was) loved)
+
+These are used to build all tenses, voices, and moods.
+

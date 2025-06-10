@@ -27,4 +27,5 @@ pnpm-debug.log*
 
 # Posts output (optional: only if you generate this at build)
 public/posts/posts.json
+public/posts/quizes.json
 public/rss.xml
