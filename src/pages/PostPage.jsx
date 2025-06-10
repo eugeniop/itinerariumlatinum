@@ -33,8 +33,19 @@ function PostPage() {
   const [tab, setTab] = useState('content')
   const [activeLeft, setActiveLeft] = useState(null)
 
+  const handleSentenceWord = (qIdx, wi) => {
+    if (submitted) return
+    const updated = [...answers]
+    const current = updated[qIdx] ? [...updated[qIdx]] : []
+    if (!current.includes(wi)) {
+      current.push(wi)
+      updated[qIdx] = current
+      setAnswers(updated)
+    }
+  }
+
   const handleAnswer = (qIdx, optionIdx, checked) => {
-    if (!quiz || quiz[qIdx].type === 'match') return
+    if (!quiz || quiz[qIdx].type === 'match' || quiz[qIdx].type === 'sentence') return
     const updated = [...answers]
     const isMulti = Array.isArray(quiz[qIdx].answer) && quiz[qIdx].answer.length > 1
     if (isMulti) {
@@ -75,6 +86,7 @@ function PostPage() {
       setAnswers(
         quiz.map((q) => {
           if (q.type === 'match') return {}
+          if (q.type === 'sentence') return []
           return Array.isArray(q.answer) && q.answer.length > 1 ? [] : null
         })
       )
@@ -104,10 +116,24 @@ function PostPage() {
               ansMap[li] = rightShuffled.indexOf(rw)
             })
             return { type: 'match', prompt: q.prompt, left: leftShuffled, right: rightShuffled, answer: ansMap }
+          } else if (q.type === 'sentence') {
+            const ansWords = Array.isArray(q.answer)
+              ? q.answer
+              : String(q.answer || '')
+                  .split(/\s+/)
+                  .filter(Boolean)
+            const allWords = Array.isArray(q.words) && q.words.length > 0
+              ? q.words
+              : ansWords
+            const shuffledWords = [...allWords].sort(() => Math.random() - 0.5)
+            return { type: 'sentence', prompt: q.prompt, words: shuffledWords, answer: ansWords }
           }
           let ans = q.answer
           if (typeof ans === 'string') {
-            ans = ans.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
+            ans = ans
+              .split(',')
+              .map((a) => parseInt(a.trim(), 10))
+              .filter((n) => !isNaN(n))
           } else if (!Array.isArray(ans)) {
             ans = [ans]
           }
@@ -117,6 +143,7 @@ function PostPage() {
         setQuiz(shuffled)
         setAnswers(shuffled.map((q) => {
           if (q.type === 'match') return {}
+          if (q.type === 'sentence') return []
           return q.answer.length > 1 ? [] : null
         }))
         return true
@@ -259,13 +286,17 @@ function PostPage() {
         <div>
           {quiz.map((q, qi) => {
             const isMatch = q.type === 'match'
+            const isSentence = q.type === 'sentence'
             const isCorrect = submitted && (isMatch
               ? Object.keys(q.answer).every((k) => (answers[qi] || {})[k] === q.answer[k]) &&
                 Object.keys(answers[qi] || {}).length === Object.keys(q.answer).length
-              : (q.answer.length > 1
-                  ? q.answer.every((a) => (answers[qi] || []).includes(a)) &&
-                    (answers[qi] || []).length === q.answer.length
-                  : answers[qi] === q.answer[0]))
+              : isSentence
+                ? q.answer.length === (answers[qi] || []).length &&
+                  q.answer.every((w) => (answers[qi] || []).map((idx) => q.words[idx]).includes(w))
+                : (q.answer.length > 1
+                    ? q.answer.every((a) => (answers[qi] || []).includes(a)) &&
+                      (answers[qi] || []).length === q.answer.length
+                    : answers[qi] === q.answer[0]))
             return (
               <div key={qi} className="mb-6">
                 <p className="font-semibold mb-2">{q.prompt}</p>
@@ -306,6 +337,24 @@ function PostPage() {
                       ))}
                     </div>
                   </div>
+                ) : isSentence ? (
+                  <div>
+                    <p className="mb-2">{(answers[qi] || []).map((wi) => q.words[wi]).join(' ')}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {q.words.map((word, wi) => (
+                        <button
+                          key={wi}
+                          onClick={() => handleSentenceWord(qi, wi)}
+                          disabled={submitted || (answers[qi] || []).includes(wi)}
+                          className={`px-2 py-1 border rounded ${
+                            (answers[qi] || []).includes(wi) ? 'bg-gray-200' : ''
+                          }`}
+                        >
+                          {word}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ) : (
                   q.options.map((opt, oi) => (
                     <label key={oi} className="block mb-1">
@@ -331,9 +380,11 @@ function PostPage() {
                       ? 'Correct!'
                       : isMatch
                         ? 'Incorrect.'
-                        : `Incorrect. Correct answer: ${q.answer
-                            .map((a) => q.options[a])
-                            .join(', ')}`}
+                        : isSentence
+                          ? `Incorrect. Correct answer: ${q.answer.join(' ')}`
+                          : `Incorrect. Correct answer: ${q.answer
+                              .map((a) => q.options[a])
+                              .join(', ')}`}
                   </p>
                 )}
               </div>
