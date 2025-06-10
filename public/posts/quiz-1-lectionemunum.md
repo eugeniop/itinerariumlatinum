@@ -1,7 +1,8 @@
 ---
 questions:
   - type: complete the phrase
-    prompt: Puella nautam MISSING
+    prompt: The girl loves the sailor
+    latin: Puella nautam MISSING
     words:
       - amant
       - amat
@@ -10,7 +11,8 @@ questions:
     answer:
       - amat
   - type: complete the phrase
-    prompt: MISSING insulam amant
+    prompt: The sailors love the island
+    latin: MISSING insulam amant
     words:
       - nautae
       - rex
