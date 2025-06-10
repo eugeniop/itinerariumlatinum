@@ -44,8 +44,15 @@ function PostPage() {
     }
   }
 
+  const handleCompleteWord = (qIdx, wi) => {
+    if (submitted) return
+    const updated = [...answers]
+    updated[qIdx] = wi
+    setAnswers(updated)
+  }
+
   const handleAnswer = (qIdx, optionIdx, checked) => {
-    if (!quiz || quiz[qIdx].type === 'match' || quiz[qIdx].type === 'sentence') return
+    if (!quiz || quiz[qIdx].type === 'match' || quiz[qIdx].type === 'sentence' || quiz[qIdx].type === 'complete') return
     const updated = [...answers]
     const isMulti = Array.isArray(quiz[qIdx].answer) && quiz[qIdx].answer.length > 1
     if (isMulti) {
@@ -87,6 +94,7 @@ function PostPage() {
         quiz.map((q) => {
           if (q.type === 'match') return {}
           if (q.type === 'sentence') return []
+          if (q.type === 'complete') return null
           return Array.isArray(q.answer) && q.answer.length > 1 ? [] : null
         })
       )
@@ -127,6 +135,15 @@ function PostPage() {
               : ansWords
             const shuffledWords = [...allWords].sort(() => Math.random() - 0.5)
             return { type: 'sentence', prompt: q.prompt, words: shuffledWords, answer: ansWords }
+          } else if (q.type && q.type.startsWith('complete')) {
+            const ansWord = Array.isArray(q.answer)
+              ? q.answer[0]
+              : String(q.answer || '')
+            const allWords = Array.isArray(q.words) && q.words.length > 0
+              ? q.words
+              : [ansWord]
+            const shuffledWords = [...allWords].sort(() => Math.random() - 0.5)
+            return { type: 'complete', prompt: q.prompt, words: shuffledWords, answer: ansWord }
           }
           let ans = q.answer
           if (typeof ans === 'string') {
@@ -144,6 +161,7 @@ function PostPage() {
         setAnswers(shuffled.map((q) => {
           if (q.type === 'match') return {}
           if (q.type === 'sentence') return []
+          if (q.type === 'complete') return null
           return q.answer.length > 1 ? [] : null
         }))
         return true
@@ -287,12 +305,15 @@ function PostPage() {
           {quiz.map((q, qi) => {
             const isMatch = q.type === 'match'
             const isSentence = q.type === 'sentence'
+            const isComplete = q.type === 'complete'
             const isCorrect = submitted && (isMatch
               ? Object.keys(q.answer).every((k) => (answers[qi] || {})[k] === q.answer[k]) &&
                 Object.keys(answers[qi] || {}).length === Object.keys(q.answer).length
               : isSentence
                 ? q.answer.length === (answers[qi] || []).length &&
                   q.answer.every((w) => (answers[qi] || []).map((idx) => q.words[idx]).includes(w))
+                : isComplete
+                  ? q.words[answers[qi]] === q.answer
                 : (q.answer.length > 1
                     ? q.answer.every((a) => (answers[qi] || []).includes(a)) &&
                       (answers[qi] || []).length === q.answer.length
@@ -355,6 +376,24 @@ function PostPage() {
                       ))}
                     </div>
                   </div>
+                ) : isComplete ? (
+                  <div>
+                    <p className="mb-2">{q.prompt.replace('MISSING', answers[qi] !== undefined && answers[qi] !== null ? q.words[answers[qi]] : '_____')}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {q.words.map((word, wi) => (
+                        <button
+                          key={wi}
+                          onClick={() => handleCompleteWord(qi, wi)}
+                          disabled={submitted}
+                          className={`px-2 py-1 border rounded ${
+                            answers[qi] === wi ? 'bg-gray-200' : ''
+                          }`}
+                        >
+                          {word}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ) : (
                   q.options.map((opt, oi) => (
                     <label key={oi} className="block mb-1">
@@ -382,9 +421,11 @@ function PostPage() {
                         ? 'Incorrect.'
                         : isSentence
                           ? `Incorrect. Correct answer: ${q.answer.join(' ')}`
-                          : `Incorrect. Correct answer: ${q.answer
-                              .map((a) => q.options[a])
-                              .join(', ')}`}
+                          : isComplete
+                            ? `Incorrect. Correct answer: ${q.answer}`
+                            : `Incorrect. Correct answer: ${q.answer
+                                .map((a) => q.options[a])
+                                .join(', ')}`}
                   </p>
                 )}
               </div>
