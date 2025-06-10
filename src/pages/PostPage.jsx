@@ -143,7 +143,13 @@ function PostPage() {
               ? q.words
               : [ansWord]
             const shuffledWords = [...allWords].sort(() => Math.random() - 0.5)
-            return { type: 'complete', prompt: q.prompt, words: shuffledWords, answer: ansWord }
+            return {
+              type: 'complete',
+              prompt: q.prompt,
+              latin: q.latin || q.prompt,
+              words: shuffledWords,
+              answer: ansWord,
+            }
           }
           let ans = q.answer
           if (typeof ans === 'string') {
@@ -378,7 +384,7 @@ function PostPage() {
                   </div>
                 ) : isComplete ? (
                   <div>
-                    <p className="mb-2">{q.prompt.replace('MISSING', answers[qi] !== undefined && answers[qi] !== null ? q.words[answers[qi]] : '_____')}</p>
+                    <p className="mb-2">{(q.latin || q.prompt).replace('MISSING', answers[qi] !== undefined && answers[qi] !== null ? q.words[answers[qi]] : '_____')}</p>
                     <div className="flex flex-wrap gap-2">
                       {q.words.map((word, wi) => (
                         <button
