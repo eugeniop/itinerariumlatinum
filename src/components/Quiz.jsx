@@ -6,6 +6,7 @@ function Quiz({ sources }) {
   const [answers, setAnswers] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [activeLeft, setActiveLeft] = useState(null)
+  const [instructions, setInstructions] = useState('')
 
   const handleSentenceWord = (qIdx, wi) => {
     if (submitted) return
@@ -81,6 +82,11 @@ function Quiz({ sources }) {
     try {
       const { attributes } = fm(raw)
       if (attributes.questions) {
+        if (attributes.instructions) {
+          setInstructions(String(attributes.instructions))
+        } else {
+          setInstructions('')
+        }
         const processed = attributes.questions.map((q) => {
           if (q.type === 'match' && Array.isArray(q.pairs)) {
             let pairs = [...q.pairs]
@@ -164,6 +170,9 @@ function Quiz({ sources }) {
 
   return (
     <div>
+      {instructions && (
+        <p className="mb-4 italic">{instructions}</p>
+      )}
       {quiz.map((q, qi) => {
         const isMatch = q.type === 'match'
         const isSentence = q.type === 'sentence'
