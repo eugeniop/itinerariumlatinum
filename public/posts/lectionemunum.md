@@ -1,7 +1,7 @@
 ---
 layout: post
-title: LECTIONEM VNUM
-date:   2025-06-07
+title: LECTIONEM VNVM
+date:   2025-06-09
 categories:
 author: Eugenio Pace
 ---
@@ -9,7 +9,7 @@ author: Eugenio Pace
 This is LEsson one
 
 ```
---- 
+---
 questions:
   - type: sentence
     prompt: "The girl reads the book"
