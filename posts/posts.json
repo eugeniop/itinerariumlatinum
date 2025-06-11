@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "introdvctio",
+    "title": "RUDIMENTA LINGVAE LATINAE",
+    "date": "2025-06-07T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": true,
+    "excerpt": "<p>Latin is often called a <em>\"dead language.\"</em> In the sense that people don’t normally use it for everyday conversations—except maybe in the Vatican.</p>",
+    "excerptPlain": "Latin is often called a _\"dead language.\"_ In the sense that people don’t normally use it for everyday conversations—except maybe in the Vatican.",
+    "extension": ".md"
+  },
+  {
+    "slug": "lectioi",
+    "title": "LECTIO PRIMA",
+    "date": "2025-06-09T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": true,
+    "excerpt": "<p>This is LEsson one</p>",
+    "excerptPlain": "This is LEsson one",
+    "extension": ".md"
+  },
+  {
+    "slug": "salvete",
+    "title": "SALVETE DISCIPVLI",
+    "date": "2025-06-07T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": true,
+    "excerpt": "<p>Years ago, I decided to study Latin. I had many reasons, but the main ones were:</p>",
+    "excerptPlain": "Years ago, I decided to study Latin. I had many reasons, but the main ones were:",
+    "extension": ".md"
+  }
+]
