@@ -17,8 +17,8 @@
     "author": "Eugenio Pace",
     "categories": [],
     "visible": true,
-    "excerpt": "<p>This is LEsson one</p>",
-    "excerptPlain": "This is LEsson one",
+    "excerpt": "<p>`This is LEsson one</p>",
+    "excerptPlain": "`This is LEsson one",
     "extension": ".md"
   },
   {
