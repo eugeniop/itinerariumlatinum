@@ -1,4 +1,5 @@
 ---
+instructions: "Select the correct answer(s) for each question."
 questions:
   - prompt: "Which languages evolved from Latin?"
     options:
