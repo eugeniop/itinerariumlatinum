@@ -1,4 +1,5 @@
 ---
+instructions: "Match each item on the left with its corresponding item on the right."
 questions:
   - type: match
     prompt: "Match the English words with the Latin ones"

@@ -1,4 +1,5 @@
 ---
+instructions: "Choose the correct word to complete each Latin phrase."
 questions:
   - type: complete the phrase
     prompt: The girl loves the sailor
