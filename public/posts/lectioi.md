@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LECTIONEM VNVM
+title: LECTIO PRIMA
 date:   2025-06-09
 categories:
 author: Eugenio Pace

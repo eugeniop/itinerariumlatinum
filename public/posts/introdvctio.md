@@ -118,6 +118,8 @@ Adjectives and pronouns must *agree* with the nouns they describe in:
 
 They don’t have to look the same (they may belong to different declensions), but they must match in function.
 
+Adjectives typically go next to the noun they modify, but there's flexibility (commonly seen in poetry).
+
 ### 📘 Example 1: Adjective Agreement  
 *Bonus puer librum legit.* — The good boy reads a book.
 
@@ -160,6 +162,8 @@ Latin verb endings carry a lot of information. They’re conjugated by:
 * Mood (fact, command, possibility)
 * Voice (active/passive)
 
+*Person* and *Number* must agree with the subject. 
+
 Examples:
 
 * *amō* = I love  
@@ -191,4 +195,4 @@ In dictionaries, Latin verbs are listed with 4 forms:
 3. Perfect: *amāvī* — I loved  
 4. Participle: *amātus* — (having been) loved  
 
-We’ll build on these to form all tenses, voices, and moods in the next lesson.
+We’ll build on these to form all tenses, voices, and moods in future lessons.

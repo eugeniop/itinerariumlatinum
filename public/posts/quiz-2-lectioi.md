@@ -1,4 +1,5 @@
 ---
+instructions: "Select the words in order to form each sentence."
 questions:
   - type: sentence
     prompt: "The girl reads the book"
