@@ -11,7 +11,7 @@ export default function generatePostsPlugin() {
     name: 'generate-posts-index',
     async buildStart() {
 
-      const BASE_URL = process.env.NODE_ENV === '/'
+      const BASE_URL = '/'
 
       const POSTS_DIR = './public/posts'
       const OUTPUT_JSON = './public/posts/posts.json'

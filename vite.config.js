@@ -6,7 +6,7 @@ import fs from 'fs'
 import path from 'path'
 
 export default defineConfig({
-  base: process.env.NODE_ENV === '/',
+  base: '/',
   plugins: [
     generatePostsPlugin(),
     react(),
@@ -17,7 +17,7 @@ export default defineConfig({
         const notFoundPath = path.resolve(__dirname, 'dist/404.html')
 
         try {
-          if (fs.existsSync(indexPath)) {
+          if(fs.existsSync(indexPath)) {
             fs.copyFileSync(indexPath, notFoundPath)
             console.log('✅ 404.html copied from index.html')
           } else {
