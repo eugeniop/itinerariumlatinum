@@ -1,14 +1,13 @@
 {
-  "homepage": "https://eugeniop.github.io/techblog",
-  "name": "react-blog",
+  "homepage": "https://latin.eugeniopace.org",
+  "name": "Itinerarium Latinum",
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "postbuild": "echo > dist/.nojekyll && cp public/posts/posts.json dist/posts/posts.json && cp public/posts/quizes.json dist/posts/quizes.json"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "buffer": "^6.0.3",
