@@ -16,7 +16,7 @@
     "date": "2025-06-09T00:00:00.000Z",
     "author": "Eugenio Pace",
     "categories": [],
-    "visible": true,
+    "visible": false,
     "excerpt": "<p>`This is LEsson one</p>",
     "excerptPlain": "`This is LEsson one",
     "extension": ".md"

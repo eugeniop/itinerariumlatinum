@@ -3,6 +3,7 @@ layout: post
 title: LECTIO PRIMA
 date:   2025-06-09
 categories:
+visible: false
 author: Eugenio Pace
 ---
 
