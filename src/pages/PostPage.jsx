@@ -22,6 +22,7 @@ function PostPage() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const [quizSources, setQuizSources] = useState([])
+  // `tab` can be 'content' or the index of the active quiz
   const [tab, setTab] = useState('content')
 
   useEffect(() => {
@@ -109,23 +110,26 @@ function PostPage() {
       </p>
 
       {quizSources.length > 0 && (
-        <div className="mb-4 mt-4">
+        <div className="mb-4 mt-4 flex flex-wrap gap-2">
           <button
             onClick={() => setTab('content')}
-            className={`px-3 py-1 mr-2 rounded ${
+            className={`px-3 py-1 rounded ${
               tab === 'content' ? 'bg-blue-600 text-white' : 'bg-gray-200'
             }`}
           >
             Content
           </button>
-          <button
-            onClick={() => setTab('quiz')}
-            className={`px-3 py-1 rounded ${
-              tab === 'quiz' ? 'bg-blue-600 text-white' : 'bg-gray-200'
-            }`}
-          >
-            Quiz
-          </button>
+          {quizSources.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setTab(idx)}
+              className={`px-3 py-1 rounded ${
+                tab === idx ? 'bg-blue-600 text-white' : 'bg-gray-200'
+              }`}
+            >
+              Quiz {idx + 1}
+            </button>
+          ))}
         </div>
       )}
 
@@ -143,8 +147,8 @@ function PostPage() {
         />
       )}
 
-      {quizSources.length > 0 && tab === 'quiz' && (
-        <Quiz sources={quizSources} />
+      {quizSources.length > 0 && tab !== 'content' && (
+        <Quiz sources={[quizSources[tab]]} />
       )}
     </div>
   )
