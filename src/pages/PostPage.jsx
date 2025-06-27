@@ -27,7 +27,7 @@ function PostPage() {
   useEffect(() => {
     const loadPost = async () => {
 
-      const res = await fetch(`${import.meta.env.BASE_URL}posts/${slug}`)
+      const res = await fetch(`${import.meta.env.BASE_URL}posts/${slug}/content.md`)
       const raw = await res.text()
 
       const { attributes: data, body: content } = fm(raw)
