@@ -8,18 +8,29 @@
     "visible": true,
     "excerpt": "<p>Latin is often called a <em>\"dead language.\"</em> In the sense that people don’t normally use it for everyday conversations—except maybe in the Vatican.</p>",
     "excerptPlain": "Latin is often called a _\"dead language.\"_ In the sense that people don’t normally use it for everyday conversations—except maybe in the Vatican.",
-    "extension": ".md"
+    "extension": ""
   },
   {
     "slug": "lectioi",
-    "title": "LECTIO PRIMA",
-    "date": "2025-06-09T00:00:00.000Z",
+    "title": "LECTIO PRIMA (First Declension Nouns)",
+    "date": "2025-06-23T00:00:00.000Z",
     "author": "Eugenio Pace",
     "categories": [],
-    "visible": false,
-    "excerpt": "<p>`This is LEsson one</p>",
-    "excerptPlain": "`This is LEsson one",
-    "extension": ".md"
+    "visible": true,
+    "excerpt": "<p><em>Nouns</em> (et. <em>Nomen</em>: name) is the name we give to things, people, and places; either generally (the city, the man), or specifically (Seattle, Marcus).</p>",
+    "excerptPlain": "*Nouns* (et. *Nomen*: name) is the name we give to things, people, and places; either generally (the city, the man), or specifically (Seattle, Marcus).",
+    "extension": ""
+  },
+  {
+    "slug": "lectioii",
+    "title": "LECTIO SECUNDA",
+    "date": "2025-06-27T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": true,
+    "excerpt": "",
+    "excerptPlain": "",
+    "extension": ""
   },
   {
     "slug": "salvete",
@@ -30,6 +41,6 @@
     "visible": true,
     "excerpt": "<p>Years ago, I decided to study Latin. I had many reasons, but the main ones were:</p>",
     "excerptPlain": "Years ago, I decided to study Latin. I had many reasons, but the main ones were:",
-    "extension": ".md"
+    "extension": ""
   }
 ]

@@ -1,10 +1,13 @@
 {
-  "introdvctio.md": [
-    "quiz-1-introdvctio.md"
+  "introdvctio": [
+    "introdvctio/quiz-1.md"
   ],
-  "lectioi.md": [
-    "quiz-1-lectioi.md",
-    "quiz-2-lectioi.md",
-    "quiz-3-lectioi.md"
+  "lectioi": [
+    "lectioi/quiz-1.md",
+    "lectioi/quiz-2.md",
+    "lectioi/quiz-3.md"
+  ],
+  "lectioii": [
+    "lectioii/quiz-2.md"
   ]
 }
