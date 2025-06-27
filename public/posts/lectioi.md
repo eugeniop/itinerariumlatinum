@@ -1,151 +1,51 @@
 ---
 layout: post
 title: LECTIO PRIMA
-date:   2025-06-09
+date:   2025-06-23
 categories:
-visible: false
+visible: true
 author: Eugenio Pace
 ---
 
-`This is LEsson one
+*Nouns* (et. *Nomen*: name) is the name we give to things, people, and places; either generally (the city, the man), or specifically (Seattle, Marcus).  
 
-```
----
-questions:
-  - type: sentence
-    prompt: "The girl reads the book"
-    words:
-      - puella
-      - legit
-      - librum
-      - arbor
-      - ascendunt
-    answer:
-      - puella
-      - librum
-      - legit
+As described in the introduction, nouns in Latin, are grouped into "Declensions" which tell us how the words end. The ending of a word, signals the function the perform (called "cases").
 
-  - type: sentence
-    prompt: "The sailors love the island"
-    words:
-      - nautae
-      - amant
-      - insulam
-      - rēgīnam
-      - turba
-    answer:
-      - nautae
-      - insulam
-      - amant
+As a review, there are 6 cases in Latin: 
 
-  - type: sentence
-    prompt: "The queen sees the crowd"
-    words:
-      - rēgīna
-      - videt
-      - turbam
-      - umbra
-      - ambulant
-    answer:
-      - rēgīna
-      - turbam
-      - videt
+* **Nominative**: commonly the **subject**
+* **Genitive**: frequently used to copmnvey **possession** - translated with _of_
+* **Dative**: translated with the prepositions _to_ and _for_. Marks the think or the person indirectly affected by the verb
+* **Accusative**: signals the **direct object** of the verb.
+* **Ablative**: comes in many forms, usually to signal **means**, **agent**, **manner**, **place** and **time**. Translated with _with_, _by_, _in_. Think of the ablative as a way of modifying the **verb** (e.g. _we travel by car_, _we pay with coins_)
+* **Vocative**: (et. _vocare_: call) used to call someone or something (figuratively).
 
-  - type: sentence
-    prompt: "The woman prepares the dinner"
-    words:
-      - fēmina
-      - parat
-      - cēnam
-      - glōria
-      - amat
-    answer:
-      - fēmina
-      - cēnam
-      - parat
+### First Declension Nouns
 
-  - type: sentence
-    prompt: "The girls carry water to the table"
-    words:
-      - puellae
-      - portant
-      - aquam
-      - ad
-      - mēnsam
-      - pugnant
-    answer:
-      - puellae
-      - aquam
-      - ad
-      - mēnsam
-      - portant
+The vast majority of 1st Declension nouns are *FEMENINE*. Of course, there are a few exceptions with words that (to me) _look_ femenine but they are (traditionally for the Romans) masculine. Here are some examples: _poeta_, _nauta_, _agricola_, _pirata_. 
 
-  - type: sentence
-    prompt: "The farmer walks to the gate"
-    words:
-      - agricola
-      - ambulat
-      - ad
-      - portam
-      - nāvigat
-    answer:
-      - agricola
-      - ad
-      - portam
-      - ambulat
+Nouns are declined by adding an _ending_ to a _base_. The way to identify the _base_ is by eliminating the _genitive_ ending. 
 
-  - type: sentence
-    prompt: "The women see the shadows"
-    words:
-      - fēminae
-      - umbrās
-      - vident
-      - glōriae
-      - portant
-    answer:
-      - fēminae
-      - umbrās
-      - vident
+For example:
 
-  - type: sentence
-    prompt: "The girl walks with the sailor"
-    words:
-      - puella
-      - ambulat
-      - cum
-      - nautā
-      - patria
-    answer:
-      - puella
-      - cum
-      - nautā
-      - ambulat
+The genitive for _porta_ (meaning _gate_) is _portae_. Thus the _base_ is **port-**.
 
-  - type: sentence
-    prompt: "The letters please the queen"
-    words:
-      - epistulae
-      - placent
-      - rēgīnae
-      - fābula
-      - puellīs
-    answer:
-      - epistulae
-      - rēgīnae
-      - placent
+|Singular|Noun|Ending|
+|--------|------|------|
+|Nominative    |porta | -a   |
+|Genitive     |portae| -ae  |
+|Dative     |portae| -ae  |
+|Accusative     |portam| -am  |
+|Ablative     |portā | -ā   |
+|Vocative     |porta  | -a  |
 
-  - type: sentence
-    prompt: "The shadow enters the house"
-    words:
-      - umbra
-      - intrat
-      - domum
-      - cēna
-      - clamat
-    answer:
-      - umbra
-      - domum
-      - intrat
----
+|Plural|Noun|Ending|
+|--------|------|------|
+|Nominative    |portae | -ae   |
+|Genitive     |portarum| -arum  |
+|Dative     |portīs| -īs  |
+|Accusative     |portas| -as  |
+|Ablative     |portīs | -īs   |
+|Vocative     |portae  | -ae  |
 
-```
+If you know a noun is of the 1st declension, and you know the genitive (ending in **-ae**), then you know how to decline all cases.

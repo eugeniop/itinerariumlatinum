@@ -80,9 +80,9 @@ Romance languages like Spanish retain some of this structure:
 | Ablative         | *librō*   | **con el libro**   | Means → “With the book”                 |
 | Vocative         | *liber*   | **¡Oh libro!**     | Direct address → “O book!”              |
 
-English kept a bit of the genitive: *the book’s title*.
+English kept a bit of the genitive: *the book’s title*. the **'s** indicating possesssion.
 
-Latin nouns fall into families called *declensions* — patterns of endings. (a wword that comes from the verb _declinare_ which means _to change direction or form_). *Liber* belongs to the *2nd declension*. Most courses start with the 1st.
+Latin nouns fall into families called *declensions* — patterns of endings. (a word that comes from the verb _declinare_ which means _to change direction or form_). *Liber* belongs to the *2nd declension* which groups primarily masculine and neuter nouns.
 
 ## Latin Declensions
 
@@ -94,7 +94,7 @@ Latin nouns fall into families called *declensions* — patterns of endings. (a 
 | 4th            | -us (mostly masculine) | *manus*, *fructus*               |
 | 5th            | -ēs (feminine)         | *rēs*, *diēs*                    |
 
-Why all this complexity? My theory: languages evolve with the communities using them—commerce, conquest, education, and interaction shape grammar. Latin itself came from *Proto-Indo-European*, an even more complex ancestor with 8 cases and 3 numbers!
+Why all this complexity? Latin wasn't necessarily a **designed** language. It evolved over centuries, and sounds/pronounciations shaped the words and sentences. Liguists and grammarians **reverse engineered** what was already spoken and used into this **paradigms**. Languages evolve with the communities using them —commerce, conquest, education, and interaction shape grammar. Latin itself came from *Proto-Indo-European*, an even more complex ancestor with 8 cases and 3 numbers!
 
 The *locative* case mostly disappeared in Latin, except in a few special words and city names:
 
@@ -108,6 +108,8 @@ The *locative* case mostly disappeared in Latin, except in a few special words a
 | *humi*               | *humus*          | on the ground         |
 | *militiae*           | *militia*        | in military service   |
 
+And they never stop evolving really. I am sure 
+
 ## Agreement
 
 Adjectives and pronouns must *agree* with the nouns they describe in:
@@ -116,9 +118,9 @@ Adjectives and pronouns must *agree* with the nouns they describe in:
 * Number
 * Case
 
-They don’t have to look the same (they may belong to different declensions), but they must match in function.
+They don’t have to look the same (they may belong to different declensions), but they must match in function: if the adjective modifies a masculine subject, then it would use masculine nominative endings.
 
-Adjectives typically go next to the noun they modify, but there's flexibility (commonly seen in poetry).
+Adjectives typically go next to the noun they modify, but there's flexibility (commonly seen in poetry). If there are multiple nouns with the same function, the adjective's ending would match that of the "closest" noun.
 
 ### 📘 Example 1: Adjective Agreement  
 *Bonus puer librum legit.* — The good boy reads a book.

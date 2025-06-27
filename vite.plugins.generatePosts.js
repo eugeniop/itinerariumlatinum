@@ -89,11 +89,11 @@ export default function generatePostsPlugin() {
       const rssItems = posts.map(post => `
   <item>
     <title><![CDATA[${post.title}]]></title>
-    <link>${SITE_URL}/post/${post.slug}</link>
+    <link>${SITE_URL}/post/${post.slug}${post.extension}</link>
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${post.author}</author>
     <description><![CDATA[${post.excerpt}]]></description>
-    <guid isPermaLink="true">${SITE_URL}/post/${post.slug}</guid>
+    <guid isPermaLink="true">${SITE_URL}/post/${post.slug}${post.extension}</guid>
   </item>`).join('\n')
 
       const rss = `<?xml version="1.0" encoding="UTF-8" ?>
