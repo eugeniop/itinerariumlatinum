@@ -120,7 +120,7 @@ Adjectives and pronouns must *agree* with the nouns they describe in:
 
 They don’t have to look the same (they may belong to different declensions), but they must match in function: if the adjective modifies a masculine subject, then it would use masculine nominative endings.
 
-Adjectives typically go next to the noun they modify, but there's flexibility (commonly seen in poetry). If there are multiple nouns with the same function, the adjective's ending would match that of the "closest" noun.
+Adjectives typically go next to the noun they modify (after), but there's flexibility (commonly seen in poetry). The exception are adjectives that describe size or number as well as **demonstratives** (**hic**: this, **ille**: that). If there are multiple nouns with the same function, the adjective's ending would match that of the "closest" noun. 
 
 ### 📘 Example 1: Adjective Agreement  
 *Bonus puer librum legit.* — The good boy reads a book.

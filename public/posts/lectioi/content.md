@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LECTIO PRIMA
+title: LECTIO PRIMA (First Declension Nouns)
 date:   2025-06-23
 categories:
 visible: true
