@@ -98,7 +98,7 @@ function Home() {
       {filteredPosts.map((post) => (
         <div key={post.slug} className="mb-8">
           <h2 className="text-xl font-semibold text-blue-600 hover:underline">
-            <Link to={`/post/${post.slug}${post.extension}`}>{post.title}</Link>
+            <Link to={`/post/${post.slug}`}>{post.title}</Link>
           </h2>
           <p className="text-gray-500 text-sm mb-2">
             By {post.author} on {formatDateWithOrdinal(post.date)}

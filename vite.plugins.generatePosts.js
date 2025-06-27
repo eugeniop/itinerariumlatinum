@@ -27,9 +27,24 @@ export default function generatePostsPlugin() {
         return
       }
 
-      const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
-      const postFiles = files.filter(f => !f.startsWith('quiz-'))
-      const quizFiles = files.filter(f => f.startsWith('quiz-'))
+      const postDirs = fs.readdirSync(POSTS_DIR, { withFileTypes: true })
+        .filter(d => d.isDirectory())
+
+      const postFiles = []
+      const quizMapFiles = {}
+      for (const dir of postDirs) {
+        const dirPath = path.join(POSTS_DIR, dir.name)
+        const entries = fs.readdirSync(dirPath)
+        const mdFiles = entries.filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
+        for (const f of mdFiles) {
+          if (f === 'content.md' || f === 'content.markdown') {
+            postFiles.push({ slug: dir.name, file: path.join(dir.name, f) })
+          } else if (f.startsWith('quiz-')) {
+            if (!quizMapFiles[dir.name]) quizMapFiles[dir.name] = []
+            quizMapFiles[dir.name].push(path.join(dir.name, f))
+          }
+        }
+      }
 
       async function getExcerptHtml(body) {
         const firstPara = body.trim().split(/\n{2,}/)[0]
@@ -45,15 +60,14 @@ export default function generatePostsPlugin() {
       }
 
       const posts = await Promise.all(
-        postFiles.map(async (filename) => {
-          const fullPath = path.join(POSTS_DIR, filename)
+        postFiles.map(async ({ slug, file }) => {
+          const fullPath = path.join(POSTS_DIR, file)
           const raw = fs.readFileSync(fullPath, 'utf-8')
           const { attributes, body } = fm(raw)
           const excerpts = await getExcerptHtml(body)
 
-            const extension = path.extname(filename);
             return {
-              slug: filename.replace(/\.(md|markdown)$/, ''),
+              slug,
               title: attributes.title,
               date: new Date(attributes.date),
               author: attributes.author,
@@ -65,7 +79,7 @@ export default function generatePostsPlugin() {
               visible: attributes.visible !== false,
               excerpt: excerpts.html,
               excerptPlain: excerpts.plain,
-              extension,
+              extension: ''
             }
         })
       )
@@ -75,11 +89,10 @@ export default function generatePostsPlugin() {
 
       // Build quiz mapping
       const quizMap = {}
-      for (const postFile of postFiles) {
-        const slug = postFile.replace(/\.(md|markdown)$/, '')
-        const related = quizFiles.filter(q => q.includes(`-${slug}.`))
+      for (const slug of Object.keys(quizMapFiles)) {
+        const related = quizMapFiles[slug]
         if (related.length) {
-          quizMap[postFile] = related
+          quizMap[slug] = related
         }
       }
       fs.writeFileSync(OUTPUT_QUIZES, JSON.stringify(quizMap, null, 2))
@@ -89,11 +102,11 @@ export default function generatePostsPlugin() {
       const rssItems = posts.map(post => `
   <item>
     <title><![CDATA[${post.title}]]></title>
-    <link>${SITE_URL}/post/${post.slug}${post.extension}</link>
+    <link>${SITE_URL}/post/${post.slug}</link>
     <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     <author>${post.author}</author>
     <description><![CDATA[${post.excerpt}]]></description>
-    <guid isPermaLink="true">${SITE_URL}/post/${post.slug}${post.extension}</guid>
+    <guid isPermaLink="true">${SITE_URL}/post/${post.slug}</guid>
   </item>`).join('\n')
 
       const rss = `<?xml version="1.0" encoding="UTF-8" ?>
