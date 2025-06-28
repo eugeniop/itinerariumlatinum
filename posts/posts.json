@@ -23,13 +23,13 @@
   },
   {
     "slug": "lectioii",
-    "title": "LECTIO SECUNDA",
+    "title": "LECTIO SECUNDA (Second Declension)",
     "date": "2025-06-27T00:00:00.000Z",
     "author": "Eugenio Pace",
     "categories": [],
     "visible": true,
-    "excerpt": "",
-    "excerptPlain": "",
+    "excerpt": "<p>Second declensions nouns are mostly masculine and neuter. Like first declension nouns, there's a base and endings for each case. Most ,masculine 2nd declensions nouns end in the (familiar) <strong>us</strong>. Many (masculine) names end in <strong>us</strong> too: <em>Marcus</em>, <em>Aurelius</em>, <em>Lucius</em>. Names, like any noun <em>also</em> decline, which I find neat.</p>",
+    "excerptPlain": "Second declensions nouns are mostly masculine and neuter. Like first declension nouns, there's a base and endings for each case. Most ,masculine 2nd declensions nouns end in the (familiar) **us**. Many (masculine) names end in **us** too: _Marcus_, _Aurelius_, _Lucius_. Names, like any noun _also_ decline, which I find neat.",
     "extension": ""
   },
   {
