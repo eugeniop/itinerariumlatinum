@@ -5,7 +5,7 @@
   <link>https://latin.eugeniopace.org</link>
   <description>Itinerarium Latinum</description>
   <language>en-us</language>
-  <lastBuildDate>Sat, 28 Jun 2025 16:46:24 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 28 Jun 2025 23:45:19 GMT</lastBuildDate>
   
   <item>
     <title><![CDATA[RUDIMENTA LINGVAE LATINAE]]></title>
@@ -26,12 +26,30 @@
   </item>
 
   <item>
-    <title><![CDATA[LECTIO SECUNDA (Second Declension)]]></title>
+    <title><![CDATA[LECTIO SECUNDA (Second Declension - Masculine)]]></title>
     <link>https://latin.eugeniopace.org/post/lectioii</link>
     <pubDate>Fri, 27 Jun 2025 00:00:00 GMT</pubDate>
     <author>Eugenio Pace</author>
     <description><![CDATA[<p>Second declensions nouns are mostly masculine and neuter. Like first declension nouns, there's a base and endings for each case. Most ,masculine 2nd declensions nouns end in the (familiar) <strong>us</strong>. Many (masculine) names end in <strong>us</strong> too: <em>Marcus</em>, <em>Aurelius</em>, <em>Lucius</em>. Names, like any noun <em>also</em> decline, which I find neat.</p>]]></description>
     <guid isPermaLink="true">https://latin.eugeniopace.org/post/lectioii</guid>
+  </item>
+
+  <item>
+    <title><![CDATA[LECTIO TERTIA (Second Declension - Neuter)]]></title>
+    <link>https://latin.eugeniopace.org/post/lectioiii</link>
+    <pubDate>Sat, 28 Jun 2025 00:00:00 GMT</pubDate>
+    <author>Eugenio Pace</author>
+    <description><![CDATA[<p>Neuter nouns are plenty in the 2nd declension. Their Nominative end in <strong>-um</strong>. Nominative plural for the neuter is <strong>-a</strong> which can be easily confused with the (femenine) First Declension. Watch out!</p>]]></description>
+    <guid isPermaLink="true">https://latin.eugeniopace.org/post/lectioiii</guid>
+  </item>
+
+  <item>
+    <title><![CDATA[LECTIO QVARTA (Adverbs)]]></title>
+    <link>https://latin.eugeniopace.org/post/lectioiv</link>
+    <pubDate>Sun, 29 Jun 2025 00:00:00 GMT</pubDate>
+    <author>Eugenio Pace</author>
+    <description><![CDATA[]]></description>
+    <guid isPermaLink="true">https://latin.eugeniopace.org/post/lectioiv</guid>
   </item>
 
   <item>

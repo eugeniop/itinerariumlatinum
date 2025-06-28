@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LECTIO SECUNDA (Second Declension)
+title: LECTIO SECUNDA (Second Declension - Masculine)
 date:   2025-06-27
 categories:
 visible: true
@@ -63,8 +63,4 @@ So how do we distinguish the case?: word order and context. Sometimes other word
 
 > As mentioned in the introduction, adjectives *agree* with the noun in number, gender and case; but they might belong to different declensions. In **magne puer**, **puer** is 2nd declension, **magnus** is 1st/2nd. 
 
---- 
-
-### Neuter
-
-Neuter nouns end in **-um**
+---

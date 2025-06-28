@@ -23,13 +23,35 @@
   },
   {
     "slug": "lectioii",
-    "title": "LECTIO SECUNDA (Second Declension)",
+    "title": "LECTIO SECUNDA (Second Declension - Masculine)",
     "date": "2025-06-27T00:00:00.000Z",
     "author": "Eugenio Pace",
     "categories": [],
     "visible": true,
     "excerpt": "<p>Second declensions nouns are mostly masculine and neuter. Like first declension nouns, there's a base and endings for each case. Most ,masculine 2nd declensions nouns end in the (familiar) <strong>us</strong>. Many (masculine) names end in <strong>us</strong> too: <em>Marcus</em>, <em>Aurelius</em>, <em>Lucius</em>. Names, like any noun <em>also</em> decline, which I find neat.</p>",
     "excerptPlain": "Second declensions nouns are mostly masculine and neuter. Like first declension nouns, there's a base and endings for each case. Most ,masculine 2nd declensions nouns end in the (familiar) **us**. Many (masculine) names end in **us** too: _Marcus_, _Aurelius_, _Lucius_. Names, like any noun _also_ decline, which I find neat.",
+    "extension": ""
+  },
+  {
+    "slug": "lectioiii",
+    "title": "LECTIO TERTIA (Second Declension - Neuter)",
+    "date": "2025-06-28T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": true,
+    "excerpt": "<p>Neuter nouns are plenty in the 2nd declension. Their Nominative end in <strong>-um</strong>. Nominative plural for the neuter is <strong>-a</strong> which can be easily confused with the (femenine) First Declension. Watch out!</p>",
+    "excerptPlain": "Neuter nouns are plenty in the 2nd declension. Their Nominative end in **-um**. Nominative plural for the neuter is **-a** which can be easily confused with the (femenine) First Declension. Watch out!",
+    "extension": ""
+  },
+  {
+    "slug": "lectioiv",
+    "title": "LECTIO QVARTA (Adverbs)",
+    "date": "2025-06-29T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": false,
+    "excerpt": "",
+    "excerptPlain": "",
     "extension": ""
   },
   {
