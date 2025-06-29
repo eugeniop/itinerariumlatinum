@@ -19,6 +19,13 @@ function Quiz({ sources }) {
     }
   }
 
+  const handleSentenceReset = (qIdx) => {
+    if (submitted) return
+    const updated = [...answers]
+    updated[qIdx] = []
+    setAnswers(updated)
+  }
+
   const handleCompleteWord = (qIdx, wi) => {
     if (submitted) return
     const updated = [...answers]
@@ -191,7 +198,18 @@ function Quiz({ sources }) {
                   : answers[qi] === q.answer[0]))
         return (
           <div key={qi} className="mb-6">
-            <p className="font-semibold mb-2">{q.prompt}</p>
+            <div className="flex items-center mb-2">
+              <p className="font-semibold mr-2">{q.prompt}</p>
+              {isSentence && (
+                <button
+                  onClick={() => handleSentenceReset(qi)}
+                  disabled={submitted}
+                  className="text-sm text-blue-600 underline"
+                >
+                  Reset
+                </button>
+              )}
+            </div>
             {isMatch ? (
               <div className="flex gap-4">
                 <div className="flex flex-col gap-2">
