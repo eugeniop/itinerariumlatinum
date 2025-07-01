@@ -303,19 +303,24 @@ function Quiz({ sources }) {
               ))
             )}
             {submitted && (
-              <p className={`mt-1 font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                {isCorrect
-                  ? 'Correct!'
-                  : isMatch
-                    ? 'Incorrect.'
-                    : isSentence
-                      ? `Incorrect. Correct answer: ${q.answer.join(' ')}`
-                      : isComplete
-                        ? `Incorrect. Correct answer: ${q.answer}`
-                        : `Incorrect. Correct answer: ${q.answer
-                            .map((a) => q.options[a])
-                            .join(', ')}`}
-              </p>
+              <>
+                <p className={`mt-1 font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+                  {isCorrect
+                    ? 'Correct!'
+                    : isMatch
+                      ? 'Incorrect.'
+                      : isSentence
+                        ? `Incorrect. Correct answer: ${q.answer.join(' ')}`
+                        : isComplete
+                          ? `Incorrect. Correct answer: ${q.answer}`
+                          : `Incorrect. Correct answer: ${q.answer
+                              .map((a) => q.options[a])
+                              .join(', ')}`}
+                </p>
+                {!isCorrect && q.options && q.explanation && (
+                  <p className="mt-1 text-red-600">{q.explanation}</p>
+                )}
+              </>
             )}
           </div>
         )
