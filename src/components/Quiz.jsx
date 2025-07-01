@@ -199,6 +199,7 @@ function Quiz({ sources }) {
   }, [sources])
 
   if (!quiz) return null
+  const onlyMissing = quiz.every((q) => q.type === 'missing')
 
   return (
     <div>
@@ -315,9 +316,20 @@ function Quiz({ sources }) {
             ) : isMissing ? (
               <div>
                 <p className="mb-2">
-                  {q.prompt.replace('MISSING', answers[qi] !== undefined && answers[qi] !== null ? (
-                    <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>{q.options[answers[qi]]}</span>
-                  ) : '_____')}
+                  {(() => {
+                    const replacement =
+                      answers[qi] !== undefined && answers[qi] !== null ? (
+                        <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
+                          {q.options[answers[qi]]}
+                        </span>
+                      ) : (
+                        '_____' 
+                      )
+                    const parts = q.prompt.split('MISSING')
+                    return parts.flatMap((part, idx) =>
+                      idx < parts.length - 1 ? [part, replacement] : part
+                    )
+                  })()}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {q.options.map((word, wi) => (
@@ -387,12 +399,14 @@ function Quiz({ sources }) {
 
       {quiz.length > 0 && (
         <div className="mt-4">
-          <button
-            onClick={handleDone}
-            className="bg-green-600 text-white px-4 py-2 rounded mr-2"
-          >
-            Done
-          </button>
+          {!onlyMissing && (
+            <button
+              onClick={handleDone}
+              className="bg-green-600 text-white px-4 py-2 rounded mr-2"
+            >
+              Done
+            </button>
+          )}
           <button
             onClick={handleReset}
             className="bg-gray-300 px-4 py-2 rounded"
