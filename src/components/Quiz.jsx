@@ -19,6 +19,13 @@ function Quiz({ sources }) {
     }
   }
 
+  const handleMissingWord = (qIdx, oi) => {
+    if (submitted) return
+    const updated = [...answers]
+    updated[qIdx] = oi
+    setAnswers(updated)
+  }
+
   const handleSentenceReset = (qIdx) => {
     if (submitted) return
     const updated = [...answers]
@@ -34,7 +41,7 @@ function Quiz({ sources }) {
   }
 
   const handleAnswer = (qIdx, optionIdx, checked) => {
-    if (!quiz || quiz[qIdx].type === 'match' || quiz[qIdx].type === 'sentence' || quiz[qIdx].type === 'complete') return
+    if (!quiz || ['match', 'sentence', 'complete', 'missing'].includes(quiz[qIdx].type)) return
     const updated = [...answers]
     const isMulti = Array.isArray(quiz[qIdx].answer) && quiz[qIdx].answer.length > 1
     if (isMulti) {
@@ -76,7 +83,7 @@ function Quiz({ sources }) {
         quiz.map((q) => {
           if (q.type === 'match') return {}
           if (q.type === 'sentence') return []
-          if (q.type === 'complete') return null
+          if (q.type === 'complete' || q.type === 'missing') return null
           return Array.isArray(q.answer) && q.answer.length > 1 ? [] : null
         })
       )
@@ -137,6 +144,23 @@ function Quiz({ sources }) {
               words: shuffledWords,
               answer: ansWord,
             }
+          } else if (q.type === 'missing') {
+            let ans = q.answer
+            if (typeof ans === 'string') {
+              ans = ans
+                .split(',')
+                .map((a) => parseInt(a.trim(), 10))
+                .filter((n) => !isNaN(n))
+            } else if (!Array.isArray(ans)) {
+              ans = [ans]
+            }
+            return {
+              type: 'missing',
+              prompt: q.prompt,
+              options: q.options || [],
+              answer: ans,
+              explanation: q.explanation || '',
+            }
           }
           let ans = q.answer
           if (typeof ans === 'string') {
@@ -155,6 +179,7 @@ function Quiz({ sources }) {
           if (q.type === 'match') return {}
           if (q.type === 'sentence') return []
           if (q.type === 'complete') return null
+          if (q.type === 'missing') return null
           return q.answer.length > 1 ? [] : null
         }))
         return true
@@ -184,7 +209,9 @@ function Quiz({ sources }) {
         const isMatch = q.type === 'match'
         const isSentence = q.type === 'sentence'
         const isComplete = q.type === 'complete'
-        const isCorrect = submitted && (isMatch
+        const isMissing = q.type === 'missing'
+        const showNow = isMissing ? answers[qi] !== undefined && answers[qi] !== null : submitted
+        const isCorrect = showNow && (isMatch
           ? Object.keys(q.answer).every((k) => (answers[qi] || {})[k] === q.answer[k]) &&
             Object.keys(answers[qi] || {}).length === Object.keys(q.answer).length
           : isSentence
@@ -192,6 +219,8 @@ function Quiz({ sources }) {
               q.answer.every((w) => (answers[qi] || []).map((idx) => q.words[idx]).includes(w))
             : isComplete
               ? q.words[answers[qi]] === q.answer
+              : isMissing
+                ? q.answer.includes(answers[qi])
               : (q.answer.length > 1
                   ? q.answer.every((a) => (answers[qi] || []).includes(a)) &&
                     (answers[qi] || []).length === q.answer.length
@@ -283,6 +312,36 @@ function Quiz({ sources }) {
                   ))}
                 </div>
               </div>
+            ) : isMissing ? (
+              <div>
+                <p className="mb-2">
+                  {q.prompt.replace('MISSING', answers[qi] !== undefined && answers[qi] !== null ? (
+                    <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>{q.options[answers[qi]]}</span>
+                  ) : '_____')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {q.options.map((word, wi) => (
+                    <button
+                      key={wi}
+                      onClick={() => handleMissingWord(qi, wi)}
+                      disabled={submitted}
+                      className={`px-2 py-1 border rounded ${
+                        answers[qi] === wi ? 'bg-gray-200' : ''
+                      }`}
+                    >
+                      {word}
+                    </button>
+                  ))}
+                </div>
+                {showNow && (
+                  <p className={`mt-1 font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+                    {isCorrect ? 'Correct!' : `Incorrect. Correct answer${q.answer.length > 1 ? 's' : ''}: ${q.answer.map(a => q.options[a]).join(', ')}`}
+                  </p>
+                )}
+                {!isCorrect && q.explanation && showNow && (
+                  <p className="mt-1 text-red-600">{q.explanation}</p>
+                )}
+              </div>
             ) : (
               q.options.map((opt, oi) => (
                 <label key={oi} className="block mb-1">
@@ -302,7 +361,7 @@ function Quiz({ sources }) {
                 </label>
               ))
             )}
-            {submitted && (
+            {submitted && !isMissing && (
               <>
                 <p className={`mt-1 font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                   {isCorrect
