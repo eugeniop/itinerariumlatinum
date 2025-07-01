@@ -49,9 +49,9 @@
     "date": "2025-06-29T00:00:00.000Z",
     "author": "Eugenio Pace",
     "categories": [],
-    "visible": false,
-    "excerpt": "",
-    "excerptPlain": "",
+    "visible": true,
+    "excerpt": "<p>If <strong>Adjectives</strong> modify <strong>nouns</strong>, guess what <strong>adverbs</strong> modify? If you thought <strong>verbs</strong>, you are right!</p>",
+    "excerptPlain": "If **Adjectives** modify **nouns**, guess what **adverbs** modify? If you thought **verbs**, you are right!",
     "extension": ""
   },
   {
