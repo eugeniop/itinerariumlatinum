@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import fm from 'front-matter'
+import Markdown from 'markdown-to-jsx'
 
 function Quiz({ sources }) {
   const [quiz, setQuiz] = useState(null)
@@ -404,7 +405,9 @@ function Quiz({ sources }) {
                   </p>
                 )}
                 {!isCorrect && q.explanation && showNow && (
-                  <p className="mt-1 text-red-600">{q.explanation}</p>
+                  <Markdown className="mt-1 text-red-600" options={{ forceInline: true }}>
+                    {q.explanation}
+                  </Markdown>
                 )}
               </div>
             ) : (
@@ -442,7 +445,9 @@ function Quiz({ sources }) {
                               .join(', ')}`}
                 </p>
                 {!isCorrect && q.explanation && (
-                  <p className="mt-1 text-red-600">{q.explanation}</p>
+                  <Markdown className="mt-1 text-red-600" options={{ forceInline: true }}>
+                    {q.explanation}
+                  </Markdown>
                 )}
               </>
             )}
