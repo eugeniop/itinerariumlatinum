@@ -257,7 +257,11 @@ function Quiz({ sources }) {
         const isSentence = q.type === 'sentence'
         const isComplete = q.type === 'complete'
         const isMissing = q.type === 'missing'
-        const showNow = isMissing ? answers[qi] !== undefined && answers[qi] !== null : submitted
+        const showNow = isMissing
+          ? answers[qi] !== undefined && answers[qi] !== null
+          : (isMatch || isSyntax)
+            ? Object.keys(answers[qi] || {}).length === Object.keys(q.answer).length
+            : submitted
         const isCorrect = showNow && ((isMatch || isSyntax)
           ? Object.keys(q.answer).every((k) => (answers[qi] || {})[k] === q.answer[k]) &&
             Object.keys(answers[qi] || {}).length === Object.keys(q.answer).length
@@ -422,13 +426,13 @@ function Quiz({ sources }) {
                 </label>
               ))
             )}
-            {submitted && !isMissing && (
+            {showNow && !isMissing && (
               <>
                 <p className={`mt-1 font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                   {isCorrect
                     ? 'Correct!'
                     : isMatch || isSyntax
-                      ? 'Incorrect.'
+                      ? 'Incorrect!'
                       : isSentence
                         ? `Incorrect. Correct answer: ${q.answer.join(' ')}`
                         : isComplete
