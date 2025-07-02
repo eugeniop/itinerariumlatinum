@@ -118,6 +118,17 @@ function Quiz({ sources }) {
               ansMap[li] = rightShuffled.indexOf(rw)
             })
             return { type: 'match', prompt: q.prompt, left: leftShuffled, right: rightShuffled, answer: ansMap }
+          } else if (q.type === 'syntax' && Array.isArray(q.pairs)) {
+            const pairs = [...q.pairs]
+            const left = pairs.map(p => Array.isArray(p) ? p[0] : p.left)
+            const right = pairs.map(p => Array.isArray(p) ? p[1] : p.right)
+            const rightShuffled = [...right].sort(() => Math.random() - 0.5)
+            const ansMap = {}
+            left.forEach((lw, li) => {
+              const rw = right[li]
+              ansMap[li] = rightShuffled.indexOf(rw)
+            })
+            return { type: 'syntax', prompt: q.prompt, left, right: rightShuffled, answer: ansMap }
           } else if (q.type === 'sentence') {
             const ansWords = Array.isArray(q.answer)
               ? q.answer
@@ -176,7 +187,7 @@ function Quiz({ sources }) {
         const shuffled = processed.sort(() => Math.random() - 0.5).slice(0, 5)
         setQuiz(shuffled)
         setAnswers(shuffled.map((q) => {
-          if (q.type === 'match') return {}
+          if (q.type === 'match' || q.type === 'syntax') return {}
           if (q.type === 'sentence') return []
           if (q.type === 'complete') return null
           if (q.type === 'missing') return null
@@ -208,11 +219,12 @@ function Quiz({ sources }) {
       )}
       {quiz.map((q, qi) => {
         const isMatch = q.type === 'match'
+        const isSyntax = q.type === 'syntax'
         const isSentence = q.type === 'sentence'
         const isComplete = q.type === 'complete'
         const isMissing = q.type === 'missing'
         const showNow = isMissing ? answers[qi] !== undefined && answers[qi] !== null : submitted
-        const isCorrect = showNow && (isMatch
+        const isCorrect = showNow && ((isMatch || isSyntax)
           ? Object.keys(q.answer).every((k) => (answers[qi] || {})[k] === q.answer[k]) &&
             Object.keys(answers[qi] || {}).length === Object.keys(q.answer).length
           : isSentence
@@ -240,8 +252,8 @@ function Quiz({ sources }) {
                 </button>
               )}
             </div>
-            {isMatch ? (
-              <div className="flex gap-4">
+              {isMatch || isSyntax ? (
+                <div className="flex gap-4">
                 <div className="flex flex-col gap-2">
                   {q.left.map((word, li) => (
                     <button
@@ -378,7 +390,7 @@ function Quiz({ sources }) {
                 <p className={`mt-1 font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                   {isCorrect
                     ? 'Correct!'
-                    : isMatch
+                    : isMatch || isSyntax
                       ? 'Incorrect.'
                       : isSentence
                         ? `Incorrect. Correct answer: ${q.answer.join(' ')}`
