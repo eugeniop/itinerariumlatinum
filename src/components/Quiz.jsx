@@ -7,6 +7,15 @@ function Quiz({ sources }) {
   const [submitted, setSubmitted] = useState(false)
   const [activeLeft, setActiveLeft] = useState(null)
   const [instructions, setInstructions] = useState('')
+  const pairColors = [
+    'bg-blue-200',
+    'bg-green-200',
+    'bg-red-200',
+    'bg-purple-200',
+    'bg-yellow-200',
+    'bg-pink-200'
+  ]
+  const [pairColorMap, setPairColorMap] = useState([])
 
   const handleSentenceWord = (qIdx, wi) => {
     if (submitted) return
@@ -69,7 +78,15 @@ function Quiz({ sources }) {
     const mapping = { ...(updated[qIdx] || {}) }
     mapping[activeLeft.li] = ri
     updated[qIdx] = mapping
+
+    const colorState = [...pairColorMap]
+    const cm = { ...(colorState[qIdx] || {}) }
+    const colorIdx = cm[activeLeft.li] !== undefined ? cm[activeLeft.li] : Object.keys(cm).length % pairColors.length
+    cm[activeLeft.li] = colorIdx
+    colorState[qIdx] = cm
+
     setAnswers(updated)
+    setPairColorMap(colorState)
     setActiveLeft(null)
   }
 
@@ -78,18 +95,13 @@ function Quiz({ sources }) {
   }
 
   const handleReset = () => {
-    if (quiz) {
-      setAnswers(
-        quiz.map((q) => {
-          if (q.type === 'match') return {}
-          if (q.type === 'sentence') return []
-          if (q.type === 'complete' || q.type === 'missing') return null
-          return Array.isArray(q.answer) && q.answer.length > 1 ? [] : null
-        })
-      )
+    if (sources && sources.length > 0) {
+      const raw = sources[Math.floor(Math.random() * sources.length)]
+      parseQuiz(raw)
     }
     setSubmitted(false)
     setActiveLeft(null)
+    setPairColorMap([])
   }
 
   const parseQuiz = (raw) => {
@@ -193,6 +205,7 @@ function Quiz({ sources }) {
           if (q.type === 'missing') return null
           return q.answer.length > 1 ? [] : null
         }))
+        setPairColorMap(shuffled.map((q) => (q.type === 'match' || q.type === 'syntax') ? {} : null))
         return true
       }
     } catch (err) {
@@ -206,8 +219,29 @@ function Quiz({ sources }) {
       const raw = sources[Math.floor(Math.random() * sources.length)]
       parseQuiz(raw)
       setSubmitted(false)
+      setPairColorMap([])
     }
   }, [sources])
+
+  useEffect(() => {
+    if (!quiz) return
+    const allAnswered = quiz.every((q, idx) => {
+      const ans = answers[idx]
+      if (q.type === 'match' || q.type === 'syntax') {
+        return ans && Object.keys(ans).length === Object.keys(q.answer).length
+      }
+      if (q.type === 'sentence') {
+        return ans && ans.length === q.answer.length
+      }
+      if (q.type === 'complete' || q.type === 'missing') {
+        return ans !== undefined && ans !== null
+      }
+      return q.answer.length > 1
+        ? ans && ans.length === q.answer.length
+        : ans !== undefined && ans !== null
+    })
+    if (allAnswered) setSubmitted(true)
+  }, [answers, quiz])
 
   if (!quiz) return null
   const onlyMissing = quiz.every((q) => q.type === 'missing')
@@ -264,7 +298,7 @@ function Quiz({ sources }) {
                         activeLeft && activeLeft.qIdx === qi && activeLeft.li === li
                           ? 'bg-blue-200'
                           : answers[qi] && answers[qi][li] !== undefined
-                            ? 'bg-green-100'
+                            ? pairColors[(pairColorMap[qi] || {})[li] % pairColors.length]
                             : ''
                       }`}
                     >
@@ -278,11 +312,14 @@ function Quiz({ sources }) {
                       key={ri}
                       onClick={() => handlePairRight(qi, ri)}
                       disabled={submitted}
-                      className={`px-2 py-1 border rounded ${
-                        Object.entries(answers[qi] || {}).some(([l, r]) => r === ri)
-                          ? 'bg-gray-200'
-                          : ''
-                      }`}
+                      className={`px-2 py-1 border rounded ${(() => {
+                        const entry = Object.entries(answers[qi] || {}).find(([l, r]) => r === ri)
+                        if (entry) {
+                          const colorIdx = (pairColorMap[qi] || {})[entry[0]]
+                          return pairColors[colorIdx % pairColors.length]
+                        }
+                        return ''
+                      })()}`}
                     >
                       {word}
                     </button>
@@ -400,7 +437,7 @@ function Quiz({ sources }) {
                               .map((a) => q.options[a])
                               .join(', ')}`}
                 </p>
-                {!isCorrect && q.options && q.explanation && (
+                {!isCorrect && q.explanation && (
                   <p className="mt-1 text-red-600">{q.explanation}</p>
                 )}
               </>
@@ -411,14 +448,6 @@ function Quiz({ sources }) {
 
       {quiz.length > 0 && (
         <div className="mt-4">
-          {!onlyMissing && (
-            <button
-              onClick={handleDone}
-              className="bg-green-600 text-white px-4 py-2 rounded mr-2"
-            >
-              Done
-            </button>
-          )}
           <button
             onClick={handleReset}
             className="bg-gray-300 px-4 py-2 rounded"
