@@ -5,7 +5,8 @@
   "lectioi": [
     "lectioi/quiz-1.md",
     "lectioi/quiz-2.md",
-    "lectioi/quiz-3.md"
+    "lectioi/quiz-3.md",
+    "lectioi/quiz-missing.md"
   ],
   "lectioii": [
     "lectioii/quiz-1.md"
@@ -17,5 +18,8 @@
   "lectioiv": [
     "lectioiv/quiz-1.md",
     "lectioiv/quiz-2.md"
+  ],
+  "lectiov": [
+    "lectiov/quiz-1.md"
   ]
 }

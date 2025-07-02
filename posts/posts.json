@@ -55,6 +55,17 @@
     "extension": ""
   },
   {
+    "slug": "lectiov",
+    "title": "LECTIO QVINTA (Prepositions)",
+    "date": "2025-07-01T00:00:00.000Z",
+    "author": "Eugenio Pace",
+    "categories": [],
+    "visible": true,
+    "excerpt": "<p>Latin relies much less than other languages on prepositions, given that the declensions and cases often convey the same meaning.</p>",
+    "excerptPlain": "Latin relies much less than other languages on prepositions, given that the declensions and cases often convey the same meaning.",
+    "extension": ""
+  },
+  {
     "slug": "salvete",
     "title": "SALVETE DISCIPVLI",
     "date": "2025-06-07T00:00:00.000Z",

@@ -5,7 +5,7 @@
   <link>https://latin.eugeniopace.org</link>
   <description>Itinerarium Latinum</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 01 Jul 2025 00:57:25 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 02 Jul 2025 01:17:56 GMT</lastBuildDate>
   
   <item>
     <title><![CDATA[RUDIMENTA LINGVAE LATINAE]]></title>
@@ -50,6 +50,15 @@
     <author>Eugenio Pace</author>
     <description><![CDATA[<p>If <strong>Adjectives</strong> modify <strong>nouns</strong>, guess what <strong>adverbs</strong> modify? If you thought <strong>verbs</strong>, you are right!</p>]]></description>
     <guid isPermaLink="true">https://latin.eugeniopace.org/post/lectioiv</guid>
+  </item>
+
+  <item>
+    <title><![CDATA[LECTIO QVINTA (Prepositions)]]></title>
+    <link>https://latin.eugeniopace.org/post/lectiov</link>
+    <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+    <author>Eugenio Pace</author>
+    <description><![CDATA[<p>Latin relies much less than other languages on prepositions, given that the declensions and cases often convey the same meaning.</p>]]></description>
+    <guid isPermaLink="true">https://latin.eugeniopace.org/post/lectiov</guid>
   </item>
 
   <item>
