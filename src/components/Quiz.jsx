@@ -141,7 +141,7 @@ function Quiz({ sources }) {
               const rw = right[li]
               ansMap[li] = rightShuffled.indexOf(rw)
             })
-            return { type: 'syntax', prompt: q.prompt, left, right: rightShuffled, answer: ansMap }
+            return { type: 'syntax', prompt: q.prompt, left, right: rightShuffled, answer: ansMap, explanation: q.explanation || '' }
           } else if (q.type === 'sentence') {
             const ansWords = Array.isArray(q.answer)
               ? q.answer
@@ -280,7 +280,9 @@ function Quiz({ sources }) {
         return (
           <div key={qi} className="mb-6">
             <div className="flex items-center mb-2">
-              <p className="font-semibold mr-2">{q.prompt}</p>
+              {!isMissing && (
+                <p className="font-semibold mr-2">{q.prompt}</p>
+              )}
               {isSentence && (
                 <button
                   onClick={() => handleSentenceReset(qi)}
@@ -457,6 +459,14 @@ function Quiz({ sources }) {
 
       {quiz.length > 0 && (
         <div className="mt-4">
+          {!onlyMissing && (
+            <button
+              onClick={handleDone}
+              className="bg-green-600 text-white px-4 py-2 rounded mr-2"
+            >
+              Done
+            </button>
+          )}
           <button
             onClick={handleReset}
             className="bg-gray-300 px-4 py-2 rounded"
