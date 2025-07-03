@@ -21,6 +21,7 @@
     "lectioiv/quiz-2.md"
   ],
   "lectiov": [
-    "lectiov/quiz-1.md"
+    "lectiov/quiz-1.md",
+    "lectiov/quiz-syntax.md"
   ]
 }
